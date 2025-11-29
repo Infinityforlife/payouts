@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Payouts History</title>
+  <title>Payout Gallery</title>
+
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -61,7 +62,7 @@
 </head>
 <body>
 
-<h1>Payout History</h1>
+<h1>Payout Image Gallery</h1>
 
 <div id="gallery" class="grid"></div>
 
@@ -72,8 +73,12 @@
 
     const gallery = document.getElementById("gallery");
 
+    // Get correct base URL (important for GitHub Pages)
+    const base = window.location.origin + window.location.pathname.replace(/\/$/, "");
+
     files.forEach(name => {
-      const url = `images/${name}`;
+      // Correct output: /payouts/images/filename.png
+      const url = `${base}/images/${name}`;
 
       const card = document.createElement("div");
       card.className = "card";
@@ -85,7 +90,7 @@
       `;
 
       card.querySelector(".copy-btn").onclick = () => {
-        navigator.clipboard.writeText(location.origin + "/" + url);
+        navigator.clipboard.writeText(url);
         alert("Copied: " + url);
       };
 
