@@ -1,87 +1,119 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Payout Gallery</title>
+<meta charset="UTF-8">
+<title>Payout Proof Gallery</title>
 
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f5f5f5;
-      margin: 0;
-      padding: 20px;
-    }
+<style>
+  body {
+    margin: 0;
+    font-family: "Inter", sans-serif;
+    background: linear-gradient(135deg, #1a1a1a, #111);
+    color: white;
+    padding: 20px;
+  }
 
-    h1 {
-      text-align: center;
-      margin-bottom: 30px;
-    }
+  h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 36px;
+    font-weight: 700;
+    letter-spacing: 1px;
+  }
 
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-      gap: 20px;
-    }
+  #searchBar {
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto 30px auto;
+    display: block;
+    padding: 12px 15px;
+    border-radius: 12px;
+    border: none;
+    font-size: 16px;
+    outline: none;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    backdrop-filter: blur(10px);
+  }
 
-    .card {
-      background: white;
-      border-radius: 10px;
-      padding: 15px;
-      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-      text-align: center;
-    }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 25px;
+  }
 
-    .card img {
-      width: 100%;
-      border-radius: 8px;
-      margin-bottom: 10px;
-    }
+  .card {
+    background: rgba(255, 255, 255, 0.08);
+    padding: 15px;
+    border-radius: 16px;
+    backdrop-filter: blur(12px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+    transition: 0.3s;
+    text-align: center;
+    transform: translateY(0);
+  }
 
-    .name {
-      font-weight: bold;
-      margin-bottom: 10px;
-      font-size: 15px;
-      word-wrap: break-word;
-    }
+  .card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.55);
+  }
 
-    .copy-btn {
-      cursor: pointer;
-      background: #0078ff;
-      color: white;
-      border: none;
-      padding: 8px 12px;
-      border-radius: 6px;
-      font-size: 14px;
-      transition: 0.2s;
-    }
+  .card img {
+    width: 100%;
+    border-radius: 12px;
+    margin-bottom: 10px;
+  }
 
-    .copy-btn:hover {
-      background: #005fcc;
-    }
-  </style>
+  .name {
+    font-size: 15px;
+    margin-bottom: 10px;
+    opacity: 0.9;
+  }
+
+  .copy-btn {
+    background: #0076ff;
+    border: none;
+    padding: 10px 12px;
+    border-radius: 10px;
+    color: white;
+    cursor: pointer;
+    transition: 0.2s;
+    width: 100%;
+    font-size: 15px;
+  }
+
+  .copy-btn:hover {
+    background: #005fd1;
+  }
+
+</style>
 </head>
 <body>
 
-<h1>Payout Image Gallery</h1>
+<h1>Payout Proof Gallery</h1>
+
+<input id="searchBar" placeholder="Search images...">
 
 <div id="gallery" class="grid"></div>
 
 <script>
+  let loadedCards = [];
+
   async function loadImages() {
     const response = await fetch("images.json");
     const files = await response.json();
 
     const gallery = document.getElementById("gallery");
 
-    // Get correct base URL (important for GitHub Pages)
+    // Base path (auto-handles GitHub Pages subpath)
     const base = window.location.origin + window.location.pathname.replace(/\/$/, "");
 
     files.forEach(name => {
-      // Correct output: /payouts/images/filename.png
-      const url = `${base}/images/${name}`;
+      const url = `${base}/Proofs/${name}`;
 
       const card = document.createElement("div");
       card.className = "card";
+      card.setAttribute("data-name", name.toLowerCase());
 
       card.innerHTML = `
         <img src="${url}">
@@ -94,11 +126,22 @@
         alert("Copied: " + url);
       };
 
+      loadedCards.push(card);
       gallery.appendChild(card);
     });
   }
 
   loadImages();
+
+  // Live Search Feature
+  document.getElementById("searchBar").addEventListener("input", function() {
+    const search = this.value.toLowerCase();
+
+    loadedCards.forEach(card => {
+      const name = card.getAttribute("data-name");
+      card.style.display = name.includes(search) ? "block" : "none";
+    });
+  });
 </script>
 
 </body>
