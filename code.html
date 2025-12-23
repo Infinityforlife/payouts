@@ -7,7 +7,7 @@
 <style>
     body { font-family: Arial, sans-serif; padding: 20px; background-color: #f0f0f0; }
     input, button { padding: 5px; margin: 5px 0; width: 100%; max-width: 400px; }
-    textarea { width: 100%; height: 300px; margin-top: 10px; font-family: monospace; }
+    textarea { width: 100%; height: 200px; margin-top: 10px; font-family: monospace; }
     label { display: block; margin-top: 10px; font-weight: bold; }
 </style>
 </head>
@@ -28,7 +28,11 @@
 
 <button onclick="generateCodes()">Generate Codes</button>
 
-<textarea id="output" placeholder="Generated codes will appear here..."></textarea>
+<h3>Lua Table Format:</h3>
+<textarea id="luaOutput" placeholder="Lua formatted codes will appear here..."></textarea>
+
+<h3>Raw Codes Only:</h3>
+<textarea id="rawOutput" placeholder="Raw codes will appear here..."></textarea>
 
 <script>
 function generateRandomString(length) {
@@ -45,14 +49,18 @@ function generateCodes() {
     const numCodes = parseInt(document.getElementById('numCodes').value);
     const ugcName = document.getElementById('ugcName').value;
     const ugcID = document.getElementById('ugcID').value;
-    const output = [];
+
+    const luaArray = [];
+    const rawArray = [];
 
     for (let i = 0; i < numCodes; i++) {
         const code = prefix + generateRandomString(8); // 8 random chars
-        output.push(`["${code}"] = {Id = ${ugcID}, Name = "${ugcName}"},`);
+        luaArray.push(`["${code}"] = {Id = ${ugcID}, Name = "${ugcName}"},`);
+        rawArray.push(code);
     }
 
-    document.getElementById('output').value = output.join('\n');
+    document.getElementById('luaOutput').value = luaArray.join('\n');
+    document.getElementById('rawOutput').value = rawArray.join('\n');
 }
 </script>
 </body>
