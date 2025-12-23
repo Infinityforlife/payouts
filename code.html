@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Roblox UGC Code Generator</title>
+<style>
+    body { font-family: Arial, sans-serif; padding: 20px; background-color: #f0f0f0; }
+    input, button { padding: 5px; margin: 5px 0; width: 100%; max-width: 400px; }
+    textarea { width: 100%; height: 300px; margin-top: 10px; font-family: monospace; }
+    label { display: block; margin-top: 10px; font-weight: bold; }
+</style>
+</head>
+<body>
+<h2>Roblox UGC Code Generator</h2>
+
+<label>Prefix:</label>
+<input type="text" id="prefix" value="Infcone">
+
+<label>Number of Codes:</label>
+<input type="number" id="numCodes" value="10">
+
+<label>UGC Name:</label>
+<input type="text" id="ugcName" value="Infinity Cone">
+
+<label>UGC ID:</label>
+<input type="text" id="ugcID" value="136968235152664">
+
+<button onclick="generateCodes()">Generate Codes</button>
+
+<textarea id="output" placeholder="Generated codes will appear here..."></textarea>
+
+<script>
+function generateRandomString(length) {
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let result = '';
+    for (let i = 0; i < length; i++) {
+        result += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+    return result;
+}
+
+function generateCodes() {
+    const prefix = document.getElementById('prefix').value;
+    const numCodes = parseInt(document.getElementById('numCodes').value);
+    const ugcName = document.getElementById('ugcName').value;
+    const ugcID = document.getElementById('ugcID').value;
+    const output = [];
+
+    for (let i = 0; i < numCodes; i++) {
+        const code = prefix + generateRandomString(8); // 8 random chars
+        output.push(`["${code}"] = {Id = ${ugcID}, Name = "${ugcName}"},`);
+    }
+
+    document.getElementById('output').value = output.join('\n');
+}
+</script>
+</body>
+</html>
