@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Access Blocked</title>
+  <style>
+    body {
+      margin: 0;
+      background: #f3f4f6;
+      font-family: Arial, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      color: #222;
+    }
+
+    .box {
+      background: white;
+      width: 500px;
+      padding: 35px;
+      border-radius: 12px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+      text-align: center;
+    }
+
+    .icon {
+      font-size: 60px;
+      margin-bottom: 15px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 28px;
+      color: #c62828;
+    }
+
+    p {
+      margin-top: 15px;
+      line-height: 1.6;
+      color: #555;
+    }
+
+    .details {
+      margin-top: 25px;
+      background: #f8f8f8;
+      padding: 15px;
+      border-radius: 8px;
+      text-align: left;
+      font-size: 14px;
+      color: #444;
+    }
+
+    .footer {
+      margin-top: 20px;
+      font-size: 12px;
+      color: #888;
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 10px 18px;
+      border: none;
+      background: #2563eb;
+      color: white;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    button:hover {
+      background: #1d4ed8;
+    }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <div class="icon">🚫</div>
+
+    <h1>Website Blocked</h1>
+
+    <p>
+      Access to this website has been restricted by Parent Controls.
+      This page may contain content that is not allowed under your current browsing settings.
+    </p>
+
+    <div class="details">
+      <strong>Reason:</strong> Restricted Content Category<br>
+      <strong>Filter:</strong> Family Protection Mode<br>
+      <strong>Status:</strong> Access Denied
+    </div>
+
+    <button onclick="alert('Parent approval required.')">
+      Request Access
+    </button>
+
+    <div class="footer">
+       Error Code: PC-403
+    </div>
+  </div>
+</body>
+</html>
